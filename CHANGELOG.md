@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+### Fixed
+
+### Changed
+
+### Removed
+
+## [0.1.0]
+
 ### Added 
 
 * Added README.
@@ -21,4 +31,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
-[unreleased]: https://github.com/TinyToolSH/tbkmk/compare/HEAD
+[unreleased]: https://github.com/TinyToolSH/tbkmk/compare/0.1.0...HEAD
+[0.1.0]: https://github.com/TinyToolSH/tbkmk/releases/tag/0.1.0
