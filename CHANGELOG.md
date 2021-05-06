@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+* Added a default file to redirect bookmark added to this file.
+
 ### Fixed
 
 ### Changed
