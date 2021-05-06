@@ -34,6 +34,22 @@ $ tbkmk https://www.youtube.com/watch?v=eK9MRhK6lFs
 This Must Be Really Embarrassing, Jay Anderson :) saved to bookmark!
 ```
 
+Every bookmark added will be displayed to `stdout` and also redirected to a file called `$HOME/.tbookmarks`.
+
+You can change the path of `tbkmk` storage file by creating an environment variable called `TBKMK_FILE`.
+
+If you use `bash` you can create an environment variable with the following command:
+
+```bash
+$ echo "export TBKMK_FILE=/path/to/tbkmk/storage/destination" >> $HOME/.bashrc
+```
+
+To `zsh` users:
+
+```bash
+$ echo "export TBKMK_FILE=/path/to/tbkmk/storage/destination" >> $HOME/.zshrc
+```
+
 # Team
 
 | <img src="https://github.com/Calebe94.png?size=200" alt="Edimar Calebe Castanho"> | <img src="https://github.com/gbgabo.png?size=200" alt="Gabriel Gaboardi"> |

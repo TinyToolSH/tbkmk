@@ -31,7 +31,8 @@ create_bookmark()
 
 main()
 {
-    create_bookmark "$1"
+    [ -z $TBKMK_FILE ] && TBKMK_FILE=$HOME/.tbookmarks
+    create_bookmark "$1" | tee -a $TBKMK_FILE
 }
 
 main "$1"
