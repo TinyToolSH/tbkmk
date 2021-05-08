@@ -20,8 +20,11 @@ url_regex='^(https?|ftp|file)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%
 
 usage()
 {
-    echo "usage:"
-    echo "tbkmk http://web.link"
+    echo "usage: tbkmk {URL | OPTION}"
+    echo "e.g: tbkmk http://web.link"
+    echo "options:"
+    echo "-l: lists bookmarks in \$TBKMK_FILE;"
+    echo "-h: shows this usage message"
 }
 
 create_bookmark()
