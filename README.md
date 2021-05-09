@@ -31,11 +31,16 @@ To add a bookmark you can inform the url:
 
 ```bash
 $ tbkmk https://www.youtube.com/watch?v=eK9MRhK6lFs
-This Must Be Really Embarrassing, Jay Anderson :) saved to bookmark!
+https://www.youtube.com/watch?v=eK9MRhK6lFs This Must Be Really Embarrassing, Jay Anderson :) - YouTube
 ```
 
 Every bookmark added will be displayed to `stdout` and also redirected to a file called `$HOME/.tbookmarks`.
 
+To list bookmarks you can use the following command:
+
+```bash
+$ tbkmk -l
+```
 You can change the path of `tbkmk` storage file by creating an environment variable called `TBKMK_FILE`.
 
 If you use `bash` you can create an environment variable with the following command:
