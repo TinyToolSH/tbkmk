@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+* Fixed bug not exiting script when `-h` is called.
+
 ### Changed
 
 * Updated parse arguments funtion.
