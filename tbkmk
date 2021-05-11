@@ -54,7 +54,8 @@ parse_arguments()
         case "${args}" in
             l) action="list" ;;
             f) filter="${OPTARG}" ;;
-            h | *) usage; exit 0 ;;
+            h) usage; exit 0 ;;
+            *) usage; exit 1 ;;
         esac
     done
 
