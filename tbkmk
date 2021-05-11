@@ -17,6 +17,9 @@
 #along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 url_regex='^(https?|ftp|file)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]$'
+action=""
+filter=""
+url=""
 
 usage()
 {
@@ -39,22 +42,36 @@ list_bookmarks()
     cat $TBKMK_FILE
 }
 
+list_bookmarks_with_filter()
+{
+    filter="$1"
+    grep "$filter" $TBKMK_FILE
+}
+
 parse_arguments()
 {
-    while getopts "hl" args; do
+    while getopts "hlf:" args; do
         case "${args}" in
-            l) list_bookmarks ;;
-            h | *) usage ;;
+            l) action="list" ;;
+            f) filter="${OPTARG}" ;;
+            h) usage; exit 0 ;;
+            *) usage; exit 1 ;;
         esac
     done
+
+    if [ ! "$#" -eq 0 ] && [[ $@ =~ $url_regex ]] && [ -z $action ]; then
+        action="add"
+        url="$@"
+    fi
 }
 
 main()
 {
     parse_arguments $@
-    if [ ! "$#" -eq 0 ] && [[ $@ =~ $url_regex ]]; then
-        create_bookmark $@ | tee -a $TBKMK_FILE
-    fi
+    case "$action" in
+        "list") [ -z $filter ] && list_bookmarks || list_bookmarks_with_filter "$filter" ;;
+        "add") create_bookmark "$url" | tee -a $TBKMK_FILE ;;
+    esac
 }
 
 [ -z $TBKMK_FILE ] && TBKMK_FILE=$HOME/.tbookmarks

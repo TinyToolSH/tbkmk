@@ -9,9 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+* Added feature to filter bookmarks when listing.
+
 ### Fixed
 
+* Fixed bug not exiting script when `-h` is called.
+
 ### Changed
+
+* Updated parse arguments funtion.
+* Updated README.md with filter command section.
 
 ### Removed
 

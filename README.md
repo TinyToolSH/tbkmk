@@ -41,6 +41,14 @@ To list bookmarks you can use the following command:
 ```bash
 $ tbkmk -l
 ```
+
+If you want to filter the list output you can use the `-f` option with the word you want to filter as argument.
+For example, if you want to show only your `github` links you can do that by running the following command:
+
+```bash
+$ tbkmk -lf github
+```
+
 You can change the path of `tbkmk` storage file by creating an environment variable called `TBKMK_FILE`.
 
 If you use `bash` you can create an environment variable with the following command:
