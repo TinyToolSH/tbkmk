@@ -42,6 +42,12 @@ list_bookmarks()
     cat $TBKMK_FILE
 }
 
+list_bookmarks_with_filter()
+{
+    filter="$1"
+    grep "$filter" $TBKMK_FILE
+}
+
 parse_arguments()
 {
     while getopts "hlf:" args; do
@@ -62,7 +68,7 @@ main()
 {
     parse_arguments $@
     case "$action" in
-        "list") [ -z $filter ] && list_bookmarks || grep "$filter" $TBKMK_FILE ;;
+        "list") [ -z $filter ] && list_bookmarks || list_bookmarks_with_filter "$filter" ;;
         "add") create_bookmark "$url" | tee -a $TBKMK_FILE ;;
     esac
 }
