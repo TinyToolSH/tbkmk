@@ -19,6 +19,7 @@
 url_regex='^(https?|ftp|file)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]$'
 action=""
 filter=""
+url=""
 
 usage()
 {
@@ -50,6 +51,11 @@ parse_arguments()
             h | *) usage ;;
         esac
     done
+
+    if [ ! "$#" -eq 0 ] && [[ $@ =~ $url_regex ]] && [ -z $action ]; then
+        action="add"
+        url="$@"
+    fi
 }
 
 main()
@@ -57,10 +63,8 @@ main()
     parse_arguments $@
     case "$action" in
         "list") [ -z $filter ] && list_bookmarks || grep "$filter" $TBKMK_FILE ;;
+        "add") create_bookmark "$url" | tee -a $TBKMK_FILE ;;
     esac
-    if [ ! "$#" -eq 0 ] && [[ $@ =~ $url_regex ]]; then
-        create_bookmark $@ | tee -a $TBKMK_FILE
-    fi
 }
 
 [ -z $TBKMK_FILE ] && TBKMK_FILE=$HOME/.tbookmarks
