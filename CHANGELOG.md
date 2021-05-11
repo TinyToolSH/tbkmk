@@ -9,9 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+* Added feature to filter bookmarks when listing.
+
 ### Fixed
 
 ### Changed
+
+* Updated parse arguments funtion.
 
 ### Removed
 
