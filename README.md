@@ -49,6 +49,18 @@ For example, if you want to show only your `github` links you can do that by run
 $ tbkmk -lf github
 ```
 
+To list bookmarks by **titles** you can use `-t` option:
+
+```bash
+$ tbkmk -lt
+```
+
+Or to list bookmarks by **url** you can use `-u` option:
+
+```bash
+$ tbkmk -lu
+```
+
 You can change the path of `tbkmk` storage file by creating an environment variable called `TBKMK_FILE`.
 
 If you use `bash` you can create an environment variable with the following command:
@@ -62,6 +74,16 @@ To `zsh` users:
 ```bash
 $ echo "export TBKMK_FILE=/path/to/tbkmk/storage/destination" >> $HOME/.zshrc
 ```
+
+## dmenu
+
+You can integrate `tbkmk` to `dmenu` if you want. We are using it as follows:
+
+```bash
+$ tbkmk -lt | dmenu -p "Bookmarks" | { read title; tbkmk -luf $title } | { read url; xdg-open $url }
+```
+
+We recommend you to apply the [case-insensitive](https://tools.suckless.org/dmenu/patches/case-insensitive/) patch to your `dmenu`.
 
 # Team
 
