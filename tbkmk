@@ -20,6 +20,7 @@ url_regex='^(https?|ftp|file)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%
 action=""
 filter=""
 url=""
+list_by=tee
 
 usage()
 {
@@ -48,12 +49,24 @@ list_bookmarks_with_filter()
     grep "$filter" $TBKMK_FILE
 }
 
+list_by_title()
+{
+    awk '{$1=""; print $0}' | cut -c2-
+}
+
+list_by_url()
+{
+    awk '{print $1}'
+}
+
 parse_arguments()
 {
-    while getopts "hlf:" args; do
+    while getopts "hlf:tu" args; do
         case "${args}" in
             l) action="list" ;;
             f) filter="${OPTARG}" ;;
+            t) list_by=list_by_title ;;
+            u) list_by=list_by_url ;;
             h) usage; exit 0 ;;
             *) usage; exit 1 ;;
         esac
@@ -69,7 +82,13 @@ main()
 {
     parse_arguments $@
     case "$action" in
-        "list") [ -z $filter ] && list_bookmarks || list_bookmarks_with_filter "$filter" ;;
+        "list")
+            if [ -z $filter ]; then
+                list_bookmarks | ${list_by}
+            else
+                list_bookmarks_with_filter "$filter" | ${list_by}
+            fi
+            ;;
         "add") create_bookmark "$url" | tee -a $TBKMK_FILE ;;
     esac
 }
