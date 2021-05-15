@@ -1,7 +1,7 @@
 .POSIX:
 
 prefix = /usr/local
-name = tbkmk
+name = tbm
 
 all:
 	@echo "all target"
