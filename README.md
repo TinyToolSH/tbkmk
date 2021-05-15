@@ -61,18 +61,18 @@ Or to list bookmarks by **url** you can use `-u` option:
 $ tbm -lu
 ```
 
-You can change the path of `tbm` storage file by creating an environment variable called `TBKMK_FILE`.
+You can change the path of `tbm` storage file by creating an environment variable called `TBM_FILE`.
 
 If you use `bash` you can create an environment variable with the following command:
 
 ```bash
-$ echo "export TBKMK_FILE=/path/to/tbm/storage/destination" >> $HOME/.bashrc
+$ echo "export TBM_FILE=/path/to/tbm/storage/destination" >> $HOME/.bashrc
 ```
 
 To `zsh` users:
 
 ```bash
-$ echo "export TBKMK_FILE=/path/to/tbm/storage/destination" >> $HOME/.zshrc
+$ echo "export TBM_FILE=/path/to/tbm/storage/destination" >> $HOME/.zshrc
 ```
 
 ## dmenu

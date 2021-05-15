@@ -27,7 +27,7 @@ usage()
     echo "usage: tbm {URL | OPTION}"
     echo "e.g: tbm http://web.link"
     echo "options:"
-    echo "-l: lists bookmarks in \$TBKMK_FILE;"
+    echo "-l: lists bookmarks in \$TBM_FILE;"
     echo "-h: shows this usage message"
 }
 
@@ -40,13 +40,13 @@ create_bookmark()
 
 list_bookmarks()
 {
-    cat $TBKMK_FILE
+    cat $TBM_FILE
 }
 
 list_bookmarks_with_filter()
 {
     filter="$1"
-    grep "$filter" $TBKMK_FILE
+    grep "$filter" $TBM_FILE
 }
 
 list_by_title()
@@ -89,11 +89,11 @@ main()
                 list_bookmarks_with_filter "$filter" | ${list_by}
             fi
             ;;
-        "add") create_bookmark "$url" | tee -a $TBKMK_FILE ;;
+        "add") create_bookmark "$url" | tee -a $TBM_FILE ;;
     esac
 }
 
-[ -z $TBKMK_FILE ] && TBKMK_FILE=$HOME/.tbookmarks
+[ -z $TBM_FILE ] && TBM_FILE=$HOME/.tbookmarks
 
 if (($# == 0)); then
     list_bookmarks
