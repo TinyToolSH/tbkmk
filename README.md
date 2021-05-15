@@ -80,7 +80,7 @@ $ echo "export TBKMK_FILE=/path/to/tbkmk/storage/destination" >> $HOME/.zshrc
 You can integrate `tbkmk` to `dmenu` if you want. We are using it as follows:
 
 ```bash
-$ tbkmk -lt | dmenu -p "Bookmarks" | xargs tbkmk -luf | {read url; xdg-open $url }
+$ tbkmk -lt | dmenu -p "Bookmarks" | { read title; tbkmk -luf $title } | { read url; xdg-open $url }
 ```
 
 We recommend you to apply the [case-insensitive](https://tools.suckless.org/dmenu/patches/case-insensitive/) patch to your `dmenu`.
