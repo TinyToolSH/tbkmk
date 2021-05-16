@@ -78,6 +78,7 @@ parse_arguments()
             u) list_by=list_by_url ;;
             i) id=1; ;;
             o) xdg-open $TBM_FILE; exit 0;;
+            i) id=1; ;;
             h) usage; exit 0 ;;
             *) usage; exit 1 ;;
         esac
