@@ -53,7 +53,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Added Changelog
 * Added gpl3+ license
 * Added Makefile
-* Added tbkmk script
+* Added tbm script
 
 ### Fixed
 
@@ -61,7 +61,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
-[unreleased]: https://github.com/TinyToolSH/tbkmk/compare/0.3.0...HEAD
-[0.3.0]: https://github.com/TinyToolSH/tbkmk/compare/0.2.0...0.3.0
-[0.2.0]: https://github.com/TinyToolSH/tbkmk/compare/0.1.0...0.2.0
-[0.1.0]: https://github.com/TinyToolSH/tbkmk/releases/tag/0.1.0
+[unreleased]: https://github.com/TinyToolSH/tbm/compare/0.3.0...HEAD
+[0.3.0]: https://github.com/TinyToolSH/tbm/compare/0.2.0...0.3.0
+[0.2.0]: https://github.com/TinyToolSH/tbm/compare/0.1.0...0.2.0
+[0.1.0]: https://github.com/TinyToolSH/tbm/releases/tag/0.1.0
