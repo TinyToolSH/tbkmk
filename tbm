@@ -21,6 +21,7 @@ action=""
 filter=""
 url=""
 list_by=tee
+id=0
 
 usage()
 {
@@ -44,7 +45,11 @@ create_bookmark()
 
 list_bookmarks()
 {
-    cat $TBM_FILE
+    if [ $id -eq 1 ]; then
+        cat -b $TBM_FILE | sed 's/\t/ /g' | sed 's/     //g'
+    else
+        cat $TBM_FILE
+    fi
 }
 
 list_bookmarks_with_filter()
@@ -65,13 +70,13 @@ list_by_url()
 
 parse_arguments()
 {
-    while getopts "hlf:tuo" args; do
+    while getopts "hlf:tui" args; do
         case "${args}" in
             l) action="list" ;;
             f) filter="${OPTARG}" ;;
             t) list_by=list_by_title ;;
             u) list_by=list_by_url ;;
-            o) xdg-open $TBM_FILE; exit 0;;
+            i) id=1; ;;
             h) usage; exit 0 ;;
             *) usage; exit 1 ;;
         esac
