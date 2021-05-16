@@ -64,7 +64,7 @@ list_by_title()
 
 list_by_url()
 {
-    [ $id -eq 1 ] &&  awk '{print $1" "$2}' | sed -e 's/^[ \t]*//' || awk '{print $1}'
+    awk '{print $1}'
 }
 
 parse_arguments()
