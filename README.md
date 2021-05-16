@@ -1,8 +1,7 @@
 # tbm
+#### **T**iny **B**ookmark **M**anager.
 
-Tiny Bookmark tool.
-
-With this tool you can create bookmarks in plain texts
+With this tool you can create and manage bookmarks in plain texts
 
 ## Dependencies
 
