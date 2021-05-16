@@ -9,9 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+* Added options to allow user to list bookmarks by titles or by url.
+
 ### Fixed
 
 ### Changed
+
+* Updated README
+* Changed project name from `tbkmk` to `tbm`.
 
 ### Removed
 
