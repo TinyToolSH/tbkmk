@@ -61,12 +61,13 @@ list_by_url()
 
 parse_arguments()
 {
-    while getopts "hlf:tu" args; do
+    while getopts "hlf:tuo" args; do
         case "${args}" in
             l) action="list" ;;
             f) filter="${OPTARG}" ;;
             t) list_by=list_by_title ;;
             u) list_by=list_by_url ;;
+            o) xdg-open $TBM_FILE; exit 0;;
             h) usage; exit 0 ;;
             *) usage; exit 1 ;;
         esac
