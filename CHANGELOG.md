@@ -11,6 +11,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+### Changed
+
+### Removed
+
+## [0.5.1]
+
+### Added
+
+### Fixed
+
 * Fixed missing options to `usage` function.
 
 ### Changed
@@ -92,7 +102,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
-[unreleased]: https://github.com/TinyToolSH/tbm/compare/0.5.0...HEAD
+[unreleased]: https://github.com/TinyToolSH/tbm/compare/0.5.1...HEAD
+[0.5.1]: https://github.com/TinyToolSH/tbm/compare/0.5.0...0.5.1
 [0.5.0]: https://github.com/TinyToolSH/tbm/compare/0.4.0...0.5.0
 [0.4.0]: https://github.com/TinyToolSH/tbm/compare/0.3.0...0.4.0
 [0.3.0]: https://github.com/TinyToolSH/tbm/compare/0.2.0...0.3.0
