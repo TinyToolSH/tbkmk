@@ -28,7 +28,11 @@ usage()
     echo "e.g: tbm http://web.link"
     echo "options:"
     echo "-l: lists bookmarks in \$TBM_FILE;"
-    echo "-h: shows this usage message"
+    echo "-f: filter bookmarks by chosen word;"
+    echo "-t: filter bookmarks by titles;"
+    echo "-u: filter bookmarks by urls;"
+    echo "-o: opens the \$TBM_FILE with your default text editor;"
+    echo "-h: shows this usage message."
 }
 
 create_bookmark()
