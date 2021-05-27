@@ -33,6 +33,7 @@ usage()
     echo "-t: filter bookmarks by titles;"
     echo "-u: filter bookmarks by urls;"
     echo "-o: opens the \$TBM_FILE with your default text editor;"
+    echo "-i: lists bookmarks by id;"
     echo "-h: shows this usage message."
 }
 
