@@ -11,6 +11,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+### Changed
+
+### Removed
+
+## [0.6.1]
+
+### Added
+
+### Fixed
+
 * Fixed errors and warnings founded by [ShellCheck](https://www.shellcheck.net).
 
 ### Changed
@@ -121,7 +131,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
-[unreleased]: https://github.com/TinyToolSH/tbm/compare/0.6.0...HEAD
+[unreleased]: https://github.com/TinyToolSH/tbm/compare/0.6.1...HEAD
+[0.6.1]: https://github.com/TinyToolSH/tbm/compare/0.6.0...0.6.1
 [0.6.0]: https://github.com/TinyToolSH/tbm/compare/0.5.1...0.6.0
 [0.5.1]: https://github.com/TinyToolSH/tbm/compare/0.5.0...0.5.1
 [0.5.0]: https://github.com/TinyToolSH/tbm/compare/0.4.0...0.5.0
