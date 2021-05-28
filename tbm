@@ -21,6 +21,7 @@ action=""
 filter=""
 url=""
 list_by=tee
+id=0
 
 usage()
 {
@@ -32,6 +33,7 @@ usage()
     echo "-t: filter bookmarks by titles;"
     echo "-u: filter bookmarks by urls;"
     echo "-o: opens the \$TBM_FILE with your default text editor;"
+    echo "-i: lists bookmarks by id;"
     echo "-h: shows this usage message."
 }
 
@@ -44,18 +46,20 @@ create_bookmark()
 
 list_bookmarks()
 {
-    cat $TBM_FILE
-}
-
-list_bookmarks_with_filter()
-{
-    filter="$1"
-    grep "$filter" $TBM_FILE
+    if [ $id -eq 1 ]; then
+        cat -b "$TBM_FILE" | sed 's/\t/) /g' | sed 's/     //g'
+    else
+        cat $TBM_FILE
+    fi
 }
 
 list_by_title()
 {
-    awk '{$1=""; print $0}' | cut -c2-
+    if [ $id -eq 1 ]; then
+        awk '{$2=""; print $0}' | awk -v OFS=' ' '{$1=$1}1' | sed -e 's/^[ \t]*//'
+    else
+        awk '{$1=""; print $0}' | cut -c2-
+    fi
 }
 
 list_by_url()
@@ -65,13 +69,15 @@ list_by_url()
 
 parse_arguments()
 {
-    while getopts "hlf:tuo" args; do
+    while getopts "hlf:tuoi" args; do
         case "${args}" in
             l) action="list" ;;
             f) filter="${OPTARG}" ;;
             t) list_by=list_by_title ;;
             u) list_by=list_by_url ;;
+            i) id=1; ;;
             o) xdg-open $TBM_FILE; exit 0;;
+            i) id=1; ;;
             h) usage; exit 0 ;;
             *) usage; exit 1 ;;
         esac
@@ -91,7 +97,7 @@ main()
             if [ -z $filter ]; then
                 list_bookmarks | ${list_by}
             else
-                list_bookmarks_with_filter "$filter" | ${list_by}
+                list_bookmarks | ${list_by} | grep -i "$filter"
             fi
             ;;
         "add") create_bookmark "$url" | tee -a $TBM_FILE ;;
