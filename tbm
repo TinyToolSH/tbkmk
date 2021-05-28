@@ -20,7 +20,7 @@ url_regex='^(https?|ftp|file)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%
 action=""
 filter=""
 url=""
-list_by=tee
+list_by="tee"
 id=0
 
 usage()
@@ -49,7 +49,7 @@ list_bookmarks()
     if [ $id -eq 1 ]; then
         cat -b "$TBM_FILE" | sed 's/\t/) /g' | sed 's/     //g'
     else
-        cat $TBM_FILE
+        cat "$TBM_FILE"
     fi
 }
 
@@ -64,7 +64,11 @@ list_by_title()
 
 list_by_url()
 {
-    awk '{print $1}'
+    if [ $id -eq 1 ]; then
+        awk '{print $1" "$2}' | sed -e 's/^[ \t]*//'
+    else
+        awk '{print $1}'
+    fi
 }
 
 parse_arguments()
@@ -76,39 +80,38 @@ parse_arguments()
             t) list_by=list_by_title ;;
             u) list_by=list_by_url ;;
             i) id=1; ;;
-            o) xdg-open $TBM_FILE; exit 0;;
-            i) id=1; ;;
+            o) xdg-open "$TBM_FILE"; exit 0;;
             h) usage; exit 0 ;;
             *) usage; exit 1 ;;
         esac
     done
 
-    if [ ! "$#" -eq 0 ] && [[ $@ =~ $url_regex ]] && [ -z $action ]; then
+    if [ ! "$#" -eq 0 ] && [[ $* =~ $url_regex ]] && [ -z "$action" ]; then
         action="add"
-        url="$@"
+        url="$*"
     fi
 }
 
 main()
 {
-    parse_arguments $@
+    parse_arguments "$@"
     case "$action" in
         "list")
-            if [ -z $filter ]; then
+            if [ -z "$filter" ]; then
                 list_bookmarks | ${list_by}
             else
                 list_bookmarks | ${list_by} | grep -i "$filter"
             fi
             ;;
-        "add") create_bookmark "$url" | tee -a $TBM_FILE ;;
+        "add") create_bookmark "$url" | tee -a "$TBM_FILE" ;;
     esac
 }
 
-[ -z $TBM_FILE ] && TBM_FILE=$HOME/.tbookmarks
+[ -z "$TBM_FILE" ] && TBM_FILE=$HOME/.tbookmarks
 
 if (($# == 0)); then
     list_bookmarks
     exit 0
 fi
 
-main $@
+main "$@"
