@@ -16,8 +16,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 * Updated usage message with `-i` option;
+* Updated filter method to ignore case distinction.
 
 ### Removed
+
+* Removed old filter function.
 
 ## [0.5.1]
 
