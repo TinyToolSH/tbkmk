@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+* Fixed errors and warnings founded by [ShellCheck](https://www.shellcheck.net).
+
 ### Changed
 
 ### Removed
