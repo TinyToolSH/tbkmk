@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+### Fixed
+
+### Changed
+
+### Removed
+
+## [0.6.0]
+
+### Added
+
 * Added list by ID option;
 
 ### Fixed
@@ -109,7 +119,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
-[unreleased]: https://github.com/TinyToolSH/tbm/compare/0.5.1...HEAD
+[unreleased]: https://github.com/TinyToolSH/tbm/compare/0.6.0...HEAD
+[0.6.0]: https://github.com/TinyToolSH/tbm/compare/0.5.1...0.6.0
 [0.5.1]: https://github.com/TinyToolSH/tbm/compare/0.5.0...0.5.1
 [0.5.0]: https://github.com/TinyToolSH/tbm/compare/0.4.0...0.5.0
 [0.4.0]: https://github.com/TinyToolSH/tbm/compare/0.3.0...0.4.0
