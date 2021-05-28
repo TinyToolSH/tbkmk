@@ -103,7 +103,7 @@ main()
             if [ -z $filter ]; then
                 list_bookmarks | ${list_by}
             else
-                list_bookmarks_with_filter "$filter" | ${list_by}
+                list_bookmarks | ${list_by} | grep -i "$filter"
             fi
             ;;
         "add") create_bookmark "$url" | tee -a $TBM_FILE ;;
