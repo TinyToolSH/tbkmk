@@ -22,6 +22,7 @@ filter=""
 url=""
 list_by="tee"
 id=0
+delete_id=""
 
 usage()
 {
@@ -71,9 +72,16 @@ list_by_url()
     fi
 }
 
+delete_bookmark()
+{
+    id="$1"
+    sed -i "$id d" "$TBM_FILE"
+    echo "ok!"
+}
+
 parse_arguments()
 {
-    while getopts "hlf:tuoi" args; do
+    while getopts "hlf:tuoid:" args; do
         case "${args}" in
             l) action="list" ;;
             f) filter="${OPTARG}" ;;
@@ -81,6 +89,7 @@ parse_arguments()
             u) list_by=list_by_url ;;
             i) id=1; ;;
             o) xdg-open "$TBM_FILE"; exit 0;;
+            d) delete_id="${OPTARG}"; action="delete" ;;
             h) usage; exit 0 ;;
             *) usage; exit 1 ;;
         esac
@@ -104,6 +113,15 @@ main()
             fi
             ;;
         "add") create_bookmark "$url" | tee -a "$TBM_FILE" ;;
+        "delete")
+            num_lines=$(wc -l "$TBM_FILE" | awk '{print $1}')
+
+            if ! [[ $delete_id =~ ^[0-9]+$ ]] || [ "$delete_id" -gt "$num_lines" ] || [ "$delete_id" -eq 0 ]; then
+                echo "invalid id!"
+                exit 1
+            fi
+
+            delete_bookmark "$delete_id";;
     esac
 }
 
