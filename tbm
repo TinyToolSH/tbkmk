@@ -53,12 +53,6 @@ list_bookmarks()
     fi
 }
 
-list_bookmarks_with_filter()
-{
-    filter="$1"
-    grep "$filter" $TBM_FILE
-}
-
 list_by_title()
 {
     if [ $id -eq 1 ]; then
