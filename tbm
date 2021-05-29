@@ -48,7 +48,7 @@ create_bookmark()
 list_bookmarks()
 {
     if [ $id -eq 1 ]; then
-        cat -b "$TBM_FILE" | sed 's/\t/) /g' | sed 's/     //g'
+        cat -b "$TBM_FILE" | awk '{out=$1") "$2; for(i=3;i<=NF;i++){out=out" "$i}; print out}'
     else
         cat "$TBM_FILE"
     fi
@@ -57,16 +57,16 @@ list_bookmarks()
 list_by_title()
 {
     if [ $id -eq 1 ]; then
-        awk '{$2=""; print $0}' | awk -v OFS=' ' '{$1=$1}1' | sed -e 's/^[ \t]*//'
+        awk '{out=$1""; for(i=3; i<=NF; i++){out=out" "$i}; print out}'
     else
-        awk '{$1=""; print $0}' | cut -c2-
+        awk '{$1=""; print $0}'
     fi
 }
 
 list_by_url()
 {
     if [ $id -eq 1 ]; then
-        awk '{print $1" "$2}' | sed -e 's/^[ \t]*//'
+        awk '{print $1" "$2}'
     else
         awk '{print $1}'
     fi
