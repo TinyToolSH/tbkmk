@@ -20,9 +20,10 @@ url_regex='^(https?|ftp|file)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%
 action=""
 filter=""
 url=""
-list_by="tee"
+list_by="tee" # tee is the default
 id=0
 delete_id=""
+output_format="tee" # tee is the default
 
 usage()
 {
@@ -79,9 +80,37 @@ delete_bookmark()
     echo "ok!"
 }
 
+to_md()
+{
+    awk '{
+        out=""
+        for(i=2; i<=NF; i++)
+        {
+            out=out$i" "
+        }
+        printf "[%s]", out
+        printf "(%s)", $1
+        printf "\n"
+    }'
+}
+
+to_html()
+{
+    awk '{
+        out=""
+        for(i=2; i<=NF; i++)
+        {
+            out=out$i" "
+        }
+        printf "<a href=\"%s\">", $1
+        printf "%s</a>", out
+        printf "\n"
+    }'
+}
+
 parse_arguments()
 {
-    while getopts "hlf:tuoid:" args; do
+    while getopts "hlf:tuoid:-:" args; do
         case "${args}" in
             l) action="list" ;;
             f) filter="${OPTARG}" ;;
@@ -91,9 +120,17 @@ parse_arguments()
             o) xdg-open "$TBM_FILE"; exit 0;;
             d) delete_id="${OPTARG}"; action="delete" ;;
             h) usage; exit 0 ;;
+            -)
+                case ${OPTARG} in
+                    "md"*) output_format=to_md ;;
+                    "html"*) output_format=to_html ;;
+                esac
+                ;;
             *) usage; exit 1 ;;
         esac
     done
+
+    shift $((OPTIND-1))
 
     if [ ! "$#" -eq 0 ] && [[ $* =~ $url_regex ]] && [ -z "$action" ]; then
         action="add"
@@ -107,12 +144,12 @@ main()
     case "$action" in
         "list")
             if [ -z "$filter" ]; then
-                list_bookmarks | ${list_by}
+                list_bookmarks | ${list_by} | ${output_format}
             else
-                list_bookmarks | ${list_by} | grep -i "$filter"
+                list_bookmarks | ${list_by} | grep -i "$filter" | ${output_format}
             fi
             ;;
-        "add") create_bookmark "$url" | tee -a "$TBM_FILE" ;;
+        "add") create_bookmark "$url" | tee -a "$TBM_FILE" | ${output_format};;
         "delete")
             num_lines=$(wc -l "$TBM_FILE" | awk '{print $1}')
 
