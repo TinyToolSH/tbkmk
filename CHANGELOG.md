@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+### Fixed
+
+### Changed
+
+### Removed
+
+## [0.8.0]
+
+### Added
+
 * Added markdown and html output format option;
     * You can use `--md` and `--html` when listing, and adding a bookmark;
 
@@ -162,7 +172,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
-[unreleased]: https://github.com/TinyToolSH/tbm/compare/0.7.1...HEAD
+[unreleased]: https://github.com/TinyToolSH/tbm/compare/0.8.0...HEAD
+[0.8.0]: https://github.com/TinyToolSH/tbm/compare/0.7.1...0.8.0
 [0.7.1]: https://github.com/TinyToolSH/tbm/compare/0.7.0...0.7.1
 [0.7.0]: https://github.com/TinyToolSH/tbm/compare/0.6.1...0.7.0
 [0.6.1]: https://github.com/TinyToolSH/tbm/compare/0.6.0...0.6.1
