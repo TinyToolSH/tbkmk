@@ -9,9 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+* Added markdown and html output format option;
+    * You can use `--md` and `--html` when listing, and adding a bookmark;
+
 ### Fixed
 
+* Fixed list by id no working with output filter;
+
 ### Changed
+
+* Changed default `$TBM_FILE` path to be `stdout`;
 
 ### Removed
 
