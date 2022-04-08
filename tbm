@@ -83,28 +83,45 @@ delete_bookmark()
 
 to_md()
 {
-    awk '{
-        out=""
-        for(i=2; i<=NF; i++)
+    awk -v id="$id" '{
+        index_arg=2
+        url=$1
+        title=""
+        if(id == 1)
         {
-            out=out$i" "
+            title=$1" "
+            index_arg=3
+            url=$2
         }
-        printf "[%s]", out
-        printf "(%s)", $1
+
+        for(i=index_arg; i<=NF; i++)
+        {
+            title=title$i" "
+        }
+        printf "[%s]", title
+        printf "(%s)", url
         printf "\n"
     }'
 }
 
 to_html()
 {
-    awk '{
-        out=""
-        for(i=2; i<=NF; i++)
+    awk -v id="$id" '{
+        index_arg=2
+        title=""
+        url=$1
+        if(id == 1)
         {
-            out=out$i" "
+            title=$1" "
+            index_arg=3
+            url=$2
         }
-        printf "<a href=\"%s\">", $1
-        printf "%s</a>", out
+        for(i=index_arg; i<=NF; i++)
+        {
+            title=title$i" "
+        }
+        printf "<a href=\"%s\">", url
+        printf "%s</a>", title
         printf "\n"
     }'
 }
