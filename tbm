@@ -37,7 +37,9 @@ usage()
     echo "-u: filter bookmarks by urls;"
     echo "-o: opens the \$TBM_FILE with your default text editor;"
     echo "-i: lists bookmarks by id;"
-    echo "-h: shows this usage message."
+    echo "-h: shows this usage message;"
+    echo "--md: convert output to markdown link style;"
+    echo "--html: convert output to html link style."
 }
 
 create_bookmark()
