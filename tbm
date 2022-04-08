@@ -24,6 +24,7 @@ list_by="tee" # tee is the default
 id=0
 delete_id=""
 output_format="tee" # tee is the default
+[ -z "$TBM_FILE" ] && TBM_FILE=/dev/stdout
 
 usage()
 {
@@ -110,7 +111,7 @@ to_html()
 
 parse_arguments()
 {
-    while getopts "hlf:tuoid:-:" args; do
+    while getopts ":hlf:tuoid:-:" args; do
         case "${args}" in
             l) action="list" ;;
             f) filter="${OPTARG}" ;;
@@ -149,7 +150,14 @@ main()
                 list_bookmarks | ${list_by} | grep -i "$filter" | ${output_format}
             fi
             ;;
-        "add") create_bookmark "$url" | tee -a "$TBM_FILE" | ${output_format};;
+        "add")
+            if [ "$TBM_FILE" != "/dev/stdout" ]; then
+                create_bookmark "$url" | tee -a "$TBM_FILE" | ${output_format}
+            else
+                create_bookmark "$url" | ${output_format}
+            fi
+            ;;
+
         "delete")
             num_lines=$(wc -l "$TBM_FILE" | awk '{print $1}')
 
