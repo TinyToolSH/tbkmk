@@ -20,8 +20,11 @@
 ####################################################################################################
 # Variables used in the script.
 ####################################################################################################
-DMENU_ARGS=$@
+DMENU_ARGS="$*"
 TBM=tbm
+DMENU_CMD="dmenu $DMENU_ARGS"
+[ -z "$DMENU_ARGS" ] && DMENU_CMD="dmenu"
+
 [ -z "$TBM_FILE" ] || [ "$TBM_FILE" = "/dev/stdout" ] && export TBM_FILE=$HOME/.tbookmarks
 
 get_bookmark_url()
@@ -38,22 +41,30 @@ bookmark_action()
 {
     bookmark="$1"
     actions="[open]\n[copy]\n[delete]\n[back]\n[close]"
-    selection=$(echo "$actions" | dmenu -p "$bookmark" $DMENU_ARGS)
-    if [ ! -z "$selection" ]; then
+    selection=$(echo "$actions" | /bin/sh -c "$DMENU_CMD -p '$bookmark'")
+    if [ -n "$selection" ]; then
         case "$selection" in
             "[open]")
                 url=$(get_bookmark_url "$bookmark")
-                [ -z "$url" ] && echo "No url given!" | dmenu -p "Error" $DMENU_ARGS || xdg-open "$url"
+                if [ -z "$url" ]; then
+                    echo "No url given!" | /bin/sh -c "$DMENU_CMD -p 'Error'"
+                else
+                    xdg-open "$url"
+                fi
                 ;;
             "[copy]")
                 url=$(get_bookmark_url "$bookmark")
                 echo "$url" | xclip -selection clipboard
                 ;;
             "[delete]")
-                choice=$(echo "no\nyes" | dmenu -p "Are you sure?" $DMENU_ARGS)
+                choice=$(printf "no\nyes" | /bin/sh -c "$DMENU_CMD -p 'Are you sure?'")
                 if [ "$choice" = "yes" ]; then
                     id=$(get_bookmark_id "$bookmark")
-                    [ -z "$id" ] && echo "No id given!" | dmenu -p "Error" $DMENU_ARGS || tbm -d "$id"
+                    if [ -z "$id" ]; then
+                        echo "No id given!" | /bin/sh -c "$DMENU_CMD -p 'Error'"
+                    else
+                        tbm -d "$id"
+                    fi
                 else
                     bookmark_action "$bookmark"
                 fi
@@ -73,12 +84,16 @@ show_bookmarks()
 {
     actions="[new]\n[close]\n"
     bookmarks="$actions$(list_bookmarks_titles)"
-    selection=$(echo "$bookmarks" | dmenu -p "Bookmarks" $DMENU_ARGS)
-    if [ ! -z "$selection" ]; then
+    selection=$(echo "$bookmarks" | /bin/sh -c "$DMENU_CMD -p 'Bookmarks'")
+    if [ -n "$selection" ]; then
         case "$selection" in
         "[new]")
             status=$($TBM "$(xclip -o -selection clipboard)")
-            [ -z "$status" ] && echo "No url on clipboard!" | dmenu -p "Error" $DMENU_ARGS || echo "$status"
+            if [ -z "$status" ]; then
+                echo "No url on clipboard!" | /bin/sh -c "$DMENU_CMD -p 'Error'"
+            else
+                echo "$status"
+            fi
             ;;
         "[close]") exit 0 ;;
         *) bookmark_action "$selection" ;;

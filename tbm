@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 #This file is part of the TinyTools distribution (https://github.com/Calebe94/TinyTools).
 #Copyright (C) 2021 TinyTools
@@ -152,7 +152,7 @@ parse_arguments()
 
     shift $((OPTIND-1))
 
-    if [ ! "$#" -eq 0 ] && [[ $* =~ $url_regex ]] && [ -z "$action" ]; then
+    if [ ! "$#" -eq 0 ] && ( echo "$*" | grep -Pq "$url_regex" ) && [ -z "$action" ]; then
         action="add"
         url="$*"
     fi
@@ -180,7 +180,7 @@ main()
         "delete")
             num_lines=$(wc -l "$TBM_FILE" | awk '{print $1}')
 
-            if ! [[ $delete_id =~ ^[0-9]+$ ]] || [ "$delete_id" -gt "$num_lines" ] || [ "$delete_id" -eq 0 ]; then
+            if ! ( echo "$delete_id" | grep -Pq '^[0-9]+$' ) || [ "$delete_id" -gt "$num_lines" ] || [ "$delete_id" -eq 0 ]; then
                 echo "invalid id!"
                 exit 1
             fi
@@ -191,7 +191,7 @@ main()
 
 [ -z "$TBM_FILE" ] && TBM_FILE=$HOME/.tbookmarks
 
-if (($# == 0)); then
+if [ "$#" -eq 0 ]; then
     list_bookmarks
     exit 0
 fi
