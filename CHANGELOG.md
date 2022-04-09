@@ -9,9 +9,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+* Added a `dmenu` wrapper called `dmenu_tbm` to manager your bookmarks;
+    * If a `TBM_FILE` is empty or `/dev/stdout` the default file will be `$HOME/.tbookmarks`;
+    * With `dmenu_tbm` you can:
+        * create a `new` bookmark;
+        * `open`, `delete` or copy (to clipboard) an existing one;
+* Added target to install `dmenu_tbm` script;
+
 ### Fixed
 
 ### Changed
+
+* Updated `README.md` with `dmenu_tbm` reference;
 
 ### Removed
 
