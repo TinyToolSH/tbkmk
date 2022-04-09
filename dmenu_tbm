@@ -71,7 +71,7 @@ list_bookmarks_titles()
 
 show_bookmarks()
 {
-    actions="[new]\n"
+    actions="[new]\n[close]\n"
     bookmarks="$actions$(list_bookmarks_titles)"
     selection=$(echo "$bookmarks" | dmenu -p "Bookmarks" $DMENU_ARGS)
     if [ ! -z "$selection" ]; then
@@ -80,9 +80,8 @@ show_bookmarks()
             status=$($TBM "$(xclip -o -selection clipboard)")
             [ -z "$status" ] && echo "No url on clipboard!" | dmenu -p "Error" $DMENU_ARGS || echo "$status"
             ;;
-        *)
-            bookmark_action "$selection"
-            ;;
+        "[close]") exit 0 ;;
+        *) bookmark_action "$selection" ;;
         esac
     fi
 }
