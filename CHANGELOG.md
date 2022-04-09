@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+### Fixed
+
+### Changed
+
+### Removed
+
+## [0.9.0]
+
+### Added
+
 * Added a `dmenu` wrapper called `dmenu_tbm` to manager your bookmarks;
     * If a `TBM_FILE` is empty or `/dev/stdout` the default file will be `$HOME/.tbookmarks`;
     * With `dmenu_tbm` you can:
@@ -181,7 +191,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
-[unreleased]: https://github.com/TinyToolSH/tbm/compare/0.8.0...HEAD
+[unreleased]: https://github.com/TinyToolSH/tbm/compare/0.9.0...HEAD
+[0.9.0]: https://github.com/TinyToolSH/tbm/compare/0.8.0...0.9.0
 [0.8.0]: https://github.com/TinyToolSH/tbm/compare/0.7.1...0.8.0
 [0.7.1]: https://github.com/TinyToolSH/tbm/compare/0.7.0...0.7.1
 [0.7.0]: https://github.com/TinyToolSH/tbm/compare/0.6.1...0.7.0
