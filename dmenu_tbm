@@ -22,7 +22,7 @@
 ####################################################################################################
 DMENU_ARGS=$@
 TBM=tbm
-[ -z "$TBM_FILE" ] || [ "$TBM_FILE" = "/dev/stdout" ] && TBM_FILE=$HOME/.tbookmarks
+[ -z "$TBM_FILE" ] || [ "$TBM_FILE" = "/dev/stdout" ] && export TBM_FILE=$HOME/.tbookmarks
 
 get_bookmark_url()
 {
