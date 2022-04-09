@@ -37,13 +37,17 @@ get_bookmark_id()
 bookmark_action()
 {
     bookmark="$1"
-    actions="[open]\n[delete]\n[close]"
+    actions="[open]\n[copy]\n[delete]\n[close]"
     selection=$(echo "$actions" | dmenu -p "$bookmark" $DMENU_ARGS)
     if [ ! -z "$selection" ]; then
         case "$selection" in
             "[open]")
                 url=$(get_bookmark_url "$bookmark")
                 [ -z "$url" ] && echo "No url given!" | dmenu -p "Error" $DMENU_ARGS || xdg-open "$url"
+                ;;
+            "[copy]")
+                url=$(get_bookmark_url "$bookmark")
+                echo "$url" | xclip -selection clipboard
                 ;;
             "[delete]")
                 id=$(get_bookmark_id "$bookmark")
