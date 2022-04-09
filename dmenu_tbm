@@ -22,7 +22,7 @@
 ####################################################################################################
 DMENU_ARGS=$@
 TBM=tbm
-[ -z "$TBM_FILE" ] && TBM_FILE=$HOME/.tbookmarks
+[ -z "$TBM_FILE" ] || [ "$TBM_FILE" = "/dev/stdout" ] && TBM_FILE=$HOME/.tbookmarks
 
 get_bookmark_url()
 {
@@ -37,7 +37,7 @@ get_bookmark_id()
 bookmark_action()
 {
     bookmark="$1"
-    actions="[open]\n[copy]\n[delete]\n[close]"
+    actions="[open]\n[copy]\n[delete]\n[back]\n[close]"
     selection=$(echo "$actions" | dmenu -p "$bookmark" $DMENU_ARGS)
     if [ ! -z "$selection" ]; then
         case "$selection" in
@@ -50,12 +50,16 @@ bookmark_action()
                 echo "$url" | xclip -selection clipboard
                 ;;
             "[delete]")
-                id=$(get_bookmark_id "$bookmark")
-                [ -z "$id" ] && echo "No id given!" | dmenu -p "Error" $DMENU_ARGS || tbm -d "$id"
+                choice=$(echo "no\nyes" | dmenu -p "Are you sure?" $DMENU_ARGS)
+                if [ "$choice" = "yes" ]; then
+                    id=$(get_bookmark_id "$bookmark")
+                    [ -z "$id" ] && echo "No id given!" | dmenu -p "Error" $DMENU_ARGS || tbm -d "$id"
+                else
+                    bookmark_action "$bookmark"
+                fi
                 ;;
-            *)
-                exit 0;
-                ;;
+            "[back]") show_bookmarks ;;
+            *) exit 0 ;;
         esac
     fi
 }
@@ -80,7 +84,6 @@ show_bookmarks()
             bookmark_action "$selection"
             ;;
         esac
-
     fi
 }
 
