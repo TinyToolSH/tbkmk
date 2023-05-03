@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+* Added support to export links in Org-mode format; 
+
 ### Fixed
 
 * Fixed portability issues found by `shellcheck`;

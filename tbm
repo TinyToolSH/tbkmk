@@ -128,6 +128,31 @@ to_html()
     }'
 }
 
+to_org()
+{
+    awk -v id="$id" '{
+        index_arg=2
+        url=$1
+        title=""
+        if(id == 1)
+        {
+            title=$1" "
+            index_arg=3
+            url=$2
+        }
+
+        for(i=index_arg; i<=NF; i++)
+        {
+            title=title$i" "
+        }
+        printf "["
+        printf "[%s]", url
+        printf "[%s]", title
+        printf "]"
+        printf "\n"
+    }'
+}
+
 parse_arguments()
 {
     while getopts ":hlf:tuoid:-:" args; do
@@ -144,6 +169,7 @@ parse_arguments()
                 case ${OPTARG} in
                     "md"*) output_format=to_md ;;
                     "html"*) output_format=to_html ;;
+                    "org"*) output_format=to_org ;;
                 esac
                 ;;
             *) usage; exit 1 ;;

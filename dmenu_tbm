@@ -80,9 +80,31 @@ list_bookmarks_titles()
     $TBM -lt
 }
 
+convert_url_to()
+{
+    mode="$1"
+    export TBM_FILE=/dev/stdout;
+    url="$(xclip -o -selection clipboard)"
+    case "$mode" in
+        "md")
+            tbm --md "$url" | xclip -selection clipboard
+            notify-send "Converted $url" "to Markdown!"
+            ;;
+        "html")
+            tbm --html "$url" | xclip -selection clipboard
+            notify-send "Converted $url" "to HTML!"
+            ;;
+        "org")
+            tbm --org "$url" | xclip -selection clipboard
+            notify-send "Converted $url" "to Org Mode!"
+            ;;
+        *)  exit 1;;
+    esac
+}
+
 show_bookmarks()
 {
-    actions="[new]\n[close]\n"
+    actions="[new]\n[to md]\n[to html]\n[to org]\n[close]\n"
     bookmarks="$actions$(list_bookmarks_titles)"
     selection=$(echo "$bookmarks" | /bin/sh -c "$DMENU_CMD -p 'Bookmarks'")
     if [ -n "$selection" ]; then
@@ -95,6 +117,9 @@ show_bookmarks()
                 echo "$status"
             fi
             ;;
+        "[to md]") convert_url_to "md" ;;
+        "[to html]") convert_url_to "html" ;;
+        "[to org]") convert_url_to "org" ;;
         "[close]") exit 0 ;;
         *) bookmark_action "$selection" ;;
         esac
