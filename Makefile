@@ -9,7 +9,7 @@ all:
 install:
 	@echo "Installing ${name}..."
 	install -m 555 ${name} $(DESTDIR)/$(prefix)/bin/
-	install -m 555 dmenu_${name} $(DESTDIR)/$(prefix)/bin/
+	install -m 555 ${name}_menu $(DESTDIR)/$(prefix)/bin/
 	@echo "done!"
 
 clean:
@@ -20,7 +20,7 @@ distclean: clean
 uninstall:
 	@echo "Uninstall ${name}"
 	rm -f $(DESTDIR)/$(prefix)/bin/${name}
-	rm -f $(DESTDIR)/$(prefix)/bin/dmenu_${name}
+	rm -f $(DESTDIR)/$(prefix)/bin/${name}_menu
 	@echo "done!"
 
 .PHONY: all install clean distclean uninstall

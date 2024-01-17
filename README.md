@@ -1,12 +1,13 @@
 # tbm
+
 #### **T**iny **B**ookmark **M**anager.
 
 With this tool you can create and manage bookmarks in plain texts
 
 ## Dependencies
 
-* [shup](https://github.com/pystardust/shup);
-* [curl](https://curl.se);
+- [shup](https://github.com/pystardust/shup);
+- [curl](https://curl.se);
 
 ## Installation
 
@@ -80,26 +81,30 @@ To `zsh` users:
 $ echo "export TBM_FILE=/path/to/tbm/storage/destination" >> $HOME/.zshrc
 ```
 
-## dmenu
+## menu utility
 
-You can integrate `tbm` to `dmenu` if you want. You can use it as follows:
+You can integrate `tbm` to a menu utility like `dmenu` if you want. You can use it as follows:
 
 ```bash
 $ tbm -lt | dmenu -p "Bookmarks" | { read title; tbm -luf $title } | { read url; xdg-open $url }
 ```
 
-Or, you can use our [dmenu_tbm](https://github.com/TinyToolSH/tbm/blob/main/dmenu_tbm) wrapper,
-which gives you some management options like `new` bookmark, `remove` an existing bookmark or `copy` to clipboard.
+Or, you can use our [tbm_menu](https://github.com/TinyToolSH/tbm/blob/main/tbm_menu) wrapper,
+which gives you extra support for `fzf` and `rofi`; and some management options like `new` bookmark, `remove` an existing bookmark or `copy` to clipboard.
 
-We'd recommend you to apply the [case-insensitive](https://tools.suckless.org/dmenu/patches/case-insensitive/) patch to your `dmenu`.
+```bash
+$ export TBM_FILE=/path/to/tbm/storage/destination; tbm_menu -f
+# It support
+```
+
+We recommend you to apply the [case-insensitive](https://tools.suckless.org/dmenu/patches/case-insensitive/) patch to your `dmenu`.
 
 # Team
 
 | <img src="https://github.com/Calebe94.png?size=200" alt="Edimar Calebe Castanho"> | <img src="https://github.com/gbgabo.png?size=200" alt="Gabriel Gaboardi"> |
-|:---------------------------------------------------------------------------------:|:-------------------------------------------------------------------------:|
-| [Edimar Calebe Castanho (Calebe94)](https://github.com/Calebe94)                  | [Gabriel Gaboardi (Gabo)](https://github.com/gbgabo)                      |
+| :-------------------------------------------------------------------------------: | :-----------------------------------------------------------------------: |
+|         [Edimar Calebe Castanho (Calebe94)](https://github.com/Calebe94)          |           [Gabriel Gaboardi (Gabo)](https://github.com/gbgabo)            |
 
 # License
 
 All software is covered under [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html).
-

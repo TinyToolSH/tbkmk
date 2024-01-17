@@ -18,42 +18,67 @@
 #
 
 ####################################################################################################
-# Variables used in the script.
+# Variables
 ####################################################################################################
-DMENU_ARGS=$@
-TBM=tbm
-[ -z "$TBM_FILE" ] || [ "$TBM_FILE" = "/dev/stdout" ] && export TBM_FILE=$HOME/.tbookmarks
+tbm=tbm
+[ -z "$TBM_FILE" ] || [ "$TBM_FILE" = "/dev/stdout" ] && export TBM_FILE="$HOME/.tbookmarks"
+menu_args=""
+menu="-d"
+####################################################################################################
+# Functions
+####################################################################################################
+parse_arguments(){
+    while getopts dfra: option
+    do
+        case "${option}" in
+            d) menu='-d';;
+            f) menu='-f';;
+            r) menu='-r';;
+            a) menu_args="${OPTARG}";;
+            *) echo "menu not available"; exit 1 ;;
+        esac
+    done
+}
+
+display_menu(){
+    printf '%s\n' "$1" | tmenu "$menu" -a "-p $2: $menu_args"
+}
 
 get_bookmark_url()
 {
-    $TBM -l | grep "$1" | awk '{print $1}'
+    $tbm -l | grep "$1" | awk '{print $1}'
 }
 
 get_bookmark_id()
 {
-    $TBM -li | grep "$1" | awk '{print $1}' | rev | cut -c 2- | rev
+    $tbm -li | grep "$1" | awk '{print $1}' | rev | cut -c 2- | rev
+}
+
+list_bookmarks_titles()
+{
+    $tbm -lt
 }
 
 bookmark_action()
 {
     bookmark="$1"
     actions="[open]\n[copy]\n[delete]\n[back]\n[close]"
-    selection=$(echo "$actions" | dmenu -p "$bookmark" $DMENU_ARGS)
-    if [ ! -z "$selection" ]; then
+    selection=$(display_menu "$actions" "$bookmark")
+    if [ -n "$selection" ]; then
         case "$selection" in
             "[open]")
                 url=$(get_bookmark_url "$bookmark")
-                [ -z "$url" ] && echo "No url given!" | dmenu -p "Error" $DMENU_ARGS || xdg-open "$url"
+                [ -z "$url" ] && display_menu "No url given!" "Error" || xdg-open "$url"
                 ;;
             "[copy]")
                 url=$(get_bookmark_url "$bookmark")
                 echo "$url" | xclip -selection clipboard
                 ;;
             "[delete]")
-                choice=$(echo "no\nyes" | dmenu -p "Are you sure?" $DMENU_ARGS)
+                choice=$(display_menu "no\nyes" "Are you sure?")
                 if [ "$choice" = "yes" ]; then
                     id=$(get_bookmark_id "$bookmark")
-                    [ -z "$id" ] && echo "No id given!" | dmenu -p "Error" $DMENU_ARGS || tbm -d "$id"
+                    [ -z "$id" ] && display_menu "No id given!" "Error" || tbm -d "$id"
                 else
                     bookmark_action "$bookmark"
                 fi
@@ -64,30 +89,24 @@ bookmark_action()
     fi
 }
 
-list_bookmarks_titles()
-{
-    $TBM -lt
-}
-
 show_bookmarks()
 {
     actions="[new]\n[close]\n"
     bookmarks="$actions$(list_bookmarks_titles)"
-    selection=$(echo "$bookmarks" | dmenu -p "Bookmarks" $DMENU_ARGS)
-    if [ ! -z "$selection" ]; then
+    selection=$(display_menu "$bookmarks" "Bookmarks")
+    if [ -n "$selection" ]; then
         case "$selection" in
         "[new]")
-            status=$($TBM "$(xclip -o -selection clipboard)")
-            [ -z "$status" ] && echo "No url on clipboard!" | dmenu -p "Error" $DMENU_ARGS || echo "$status"
+            status=$($tbm "$(xclip -o -selection clipboard)")
+            [ -z "$status" ] && display_menu "No url on clipboard!" "Error" || echo "$status"
             ;;
         "[close]") exit 0 ;;
         *) bookmark_action "$selection" ;;
         esac
     fi
 }
-
-###################################################################################################
-############################################## MAIN ###############################################
-###################################################################################################
-
+####################################################################################################
+# Main
+####################################################################################################
+parse_arguments "$@"
 show_bookmarks
